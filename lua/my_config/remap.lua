@@ -42,3 +42,6 @@ vim.keymap.set('n', '<leader>h', ':wincmd h<CR>')
 vim.keymap.set('n', '<leader>l', ':wincmd l<CR>')
 vim.keymap.set('n', '<leader>j', ':wincmd j<CR>')
 vim.keymap.set('n', '<leader>k', ':wincmd k<CR>')
+
+-- Coding Headers Generation Shortcuts
+vim.keymap.set('n', '<leader>-', 'yypwv$r-')
