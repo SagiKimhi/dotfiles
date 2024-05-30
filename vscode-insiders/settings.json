@@ -75,12 +75,16 @@
 
     // Neovim Backend
 
+    "vim.neovimPath": "C:${/}Program Files${/}Neovim${/}bin${/}nvim.exe",
     "vim.enableNeovim": true,
+    "vim.neovimConfigPath": "${env:HOME}${/}.config${/}nvim${/}init.lua",
     "vim.neovimUseConfigFile": true,
 
     // Plugins
 
     "vim.sneak": true,
+    "vim.surround": true,
+    "vim.commentary": true,
     "vim.easymotion": true,
     "vim.camelCaseMotion.enable": true,
 
@@ -634,6 +638,61 @@
         },
         
         {
+            "before": ["K"],
+
+            "commands": [
+                {
+                    "command": "editor.action.showHover",
+                    "when": "editorTextFocus"
+                },
+            ],
+        },
+
+        {
+            "before": ["C-h"],
+
+            "commands": [
+                {
+                    "command": "editor.action.triggerParameterHints",
+                    "when": "editorHasSignatureHelpProvider && editorTextFocus"
+                },
+            ],
+        },
+
+        {
+            "before": ["g", "r"],
+
+            "commands": [
+                {
+                    "command": "editor.action.goToReferences",
+                    "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+                },
+            ],
+        },
+
+        {
+            "before": ["g", "i"],
+
+            "commands": [
+                {
+                    "command": "editor.action.peekImplementation",
+                    "when": "editorHasImplementationProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+                },
+            ],
+        },
+
+        {
+            "before": ["<leader>", "f"],
+
+            "commands": [
+                {
+                    "command": "editor.action.formatDocument",
+                    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+                },
+            ],
+        },
+
+        {
             // <leader>] - go to next problem in file
             "before": ["<leader>", "]"],
 
@@ -707,6 +766,14 @@
     },
 
     "[systemverilog]": {
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        },
+        "editor.formatOnType": true
+    },
+    "[buildconfig]": {
         "editor.quickSuggestions": {
             "comments": "off",
             "strings": "off",
