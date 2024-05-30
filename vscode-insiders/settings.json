@@ -649,17 +649,6 @@
         },
 
         {
-            "before": ["C-h"],
-
-            "commands": [
-                {
-                    "command": "editor.action.triggerParameterHints",
-                    "when": "editorHasSignatureHelpProvider && editorTextFocus"
-                },
-            ],
-        },
-
-        {
             "before": ["g", "r"],
 
             "commands": [
@@ -739,6 +728,19 @@
             "before": ["<leader>", "g", "d"],
 
             "commands": ["editor.action.revealDeclaration",]
+        },
+    ],
+
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["C-h"],
+
+            "commands": [
+                {
+                    "command": "editor.action.triggerParameterHints",
+                    "when": "editorHasSignatureHelpProvider && editorTextFocus"
+                },
+            ],
         },
     ],
 
