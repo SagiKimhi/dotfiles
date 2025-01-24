@@ -1,100 +1,123 @@
 # -----------------------------------------------------------------------------
-# Environment Variables
+# Go
 # -----------------------------------------------------------------------------
 
-# HOME
-# ----
+export X_HOME="/opt/X11"
+export BREW="/opt/homebrew"
+export GO_HOME="/usr/local/go"
+export MONO_HOME="/Library/Frameworks/Mono.framework/Versions/Current"
+export DOCKER_HOME="${HOME}/.docker"
+export GO_INSTALL_HOME="${HOME}/go"
+export ZIG_HOME="${HOME}/.local/zig"
+export CARGO_HOME="${HOME}/.local/cargo"
+export VERIBLE_HOME="${HOME}/.local/opt/verible"
+export JULIAUP_HOME="${HOME}/.local/opt/juliaup"
+export OSS_CAD_SUITE_HOME="${HOME}/.local/opt/oss-cad-suite"
 
-export APACHE_HOME=$HOME/.local/apache
-export JAVA_17_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-export JAVA_21_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-export JAVA_23_HOME=/usr/lib/jvm/java-23-openjdk-amd64
+# ------------------------------------------------------------------------------
+# Brew Installations
+# ------------------------------------------------------------------------------
 
-export GO_HOME=/usr/local/go
-export QT_HOME=$HOME/.local/Qt/6.7.3/gcc_64
-export ZIG_HOME=$HOME/.local/zig
-export ANT_HOME=$APACHE_HOME/ant
-export TEX_HOME=$HOME/.local/texlive
-export JAVA_HOME=$JAVA_23_HOME
-export MARS_HOME=$HOME/.project/git/tools/mars
-export CARGO_HOME=$HOME/.local/cargo
-export THRIFT_HOME=$APACHE_HOME/thrift
-export JULIAUP_HOME=$HOME/.juliaup
-export DOXYGEN_HOME=$HOME/.local/doxygen
+export TAR_HOME="${BREW}/opt/gnu-tar"
+export FIND_HOME="${BREW}/opt/findutils"
+export FLEX_HOME="${BREW}/opt/flex"
+export RUBY_HOME="${BREW}/opt/ruby"
+export LLVM_HOME="${BREW}/opt/llvm"
+export MAKE_HOME="${BREW}/opt/make"
+export CMAKE_HOME="${BREW}/opt/cmake"
 
+# -----------------------------------------------------------------------------
 # PATH
-# ----
+# -----------------------------------------------------------------------------
 
-export PATH=$GO_HOME/bin:$PATH
-export PATH=$QT_HOME/bin:$PATH
-export PATH=$ZIG_HOME/bin:$PATH
-export PATH=$ANT_HOME/bin:$PATH
-export PATH=$TEX_HOME/bin/x86_64-linux:$PATH
-export PATH=$JAVA_HOME/bin:$PATH
-export PATH=$MARS_HOME/bin:$PATH
-export PATH=$CARGO_HOME/bin:$PATH
-export PATH=$THRIFT_HOME/bin:$PATH
-export PATH=$JULIAUP_HOME/bin:$PATH
-export PATH=$DOXYGEN_HOME/bin:$PATH
+# Binaries under ~/.local/opt/<package>/bin
+export PATH=$GO_HOME/bin:${PATH}
+export PATH=$ZIG_HOME/bin:${PATH}
+export PATH=$MONO_HOME/bin:${PATH}
+export PATH=$CARGO_HOME/bin:${PATH}
+export PATH=$DOCKER_HOME/bin:${PATH}
+export PATH=$JULIAUP_HOME/bin:${PATH}
+export PATH=$VERIBLE_HOME/bin:${PATH}
+export PATH=$GO_INSTALL_HOME/bin:${PATH}
+export PATH=${OSS_CAD_SUITE_HOME}/bin:${PATH}
 
-# Include Path
-# ------------
+# Binaries Under opt/homebrew/opt/<package>/bin
+export PATH=${RUBY_HOME}/bin:${PATH}
+export PATH=${FLEX_HOME}/bin:${PATH}
+export PATH=${LLVM_HOME}/bin:${PATH}
 
-export C_PATH=/usr/include:$C_PATH
-export C_PATH=/usr/local/include:$C_PATH
-export C_PATH=$HOME/.local/include:$C_PATH
-export C_PATH=$QT_HOME/include:$C_PATH
-export C_PATH=$ZIG_HOME/include:$C_PATH
-export C_PATH=$THRIFT_HOME/include:$C_PATH
+# Binaries Under opt/homebrew/opt/<package>/libexec/gnubin
+export PATH=${TAR_HOME}/libexec/gnubin:${PATH}
+export PATH=${FIND_HOME}/libexec/gnubin:${PATH}
+export PATH=${LLVM_HOME}/libexec/gnubin:${PATH}
+export PATH=${MAKE_HOME}/libexec/gnubin:${PATH}
 
-# Linker PATH
-# -----------
+# -----------------------------------------------------------------------------
+# C Include Paths
+# -----------------------------------------------------------------------------
 
-export LD_LIBRARY_PATH=/usr/lib:$LD_LIBRARY_PATH
+export CPATH=/usr/local/include:$CPATH
+export CPATH=$HOME/.local/include:$CPATH
+export CPATH=${BREW}/include:$CPATH
+export CPATH=${X_HOME}/include:$CPATH
+export CPATH=$LLVM_HOME/include:$CPATH
+export CPATH=$ZIG_HOME/include:$CPATH
+export CPATH=$RUBY_HOME/include:$CPATH
+export CPATH=$FLEX_HOME/include:$CPATH
+export CPATH=${X_HOME}/freetype2/include:$CPATH
+
+# -----------------------------------------------------------------------------
+# Linker Paths
+# -----------------------------------------------------------------------------
+
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$QT_HOME/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$ZIG_HOME/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$THRIFT_HOME/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$RUBY_HOME/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$FLEX_HOME/lib:$LD_LIBRARY_PATH
 
-# Qt Stuff
-# --------
+export LD_LIBRARY_PATH=${BREW}/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=${X_HOME}/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=${LLVM_HOME}/lib:$LD_LIBRARY_PATH
 
-export QT_DEBUG_PLUGINS=1
-export QT_QPA_PLATFORM=xcb
-export QT_PLUGIN_PATH=${QT_HOME}/plugins
-export QT_QPA_PLATFORM_PLUGIN_PATH=${QT_HOME}/plugins
+# --------------------------------------------------------------------------------
+# CPP Flags
+# --------------------------------------------------------------------------------
 
-# NVM Stuff
-# ---------
+export CPPFLAGS="-I${BREW}/include"
+export CPPFLAGS="-I${X_HOME}/include ${CPPFLAGS}"
+export CPPFLAGS="-I${LLVM_HOME}/include ${CPPFLAGS}"
 
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# --------------------------------------------------------------------------------
+# Linker Flags
+# --------------------------------------------------------------------------------
+
+export LDFLAGS="-L${BREW}/lib"
+export LDFLAGS="-L${X_HOME}/lib ${LDFLAGS}"
+export LDFLAGS="-L${LLVM_HOME}/lib ${LDFLAGS}"
+
+# --------------------------------------------------------------------------------
+# UV
+# --------------------------------------------------------------------------------
+
+export UV_PREVIEW=1
 
 # -----------------------------------------------------------------------------
 # Local Variables
 # -----------------------------------------------------------------------------
 
-# Directories
-# -----------
+# Common Directories
+git="${HOME}/.project/git"
+project="${HOME}/.project"
+templates="${HOME}/.project/templates"
+playground="${HOME}/.project/playground"
 
-git=${HOME}/.project/git
-project=${HOME}/.project
-pyenvs=${HOME}/.local/python-venv
-playground=${project}/playground
-
-# Git Directories
-# ---------------
-
-os=${git}/university/operating-systems-2025a
-mom=${git}/mom
-uni=${git}/university
-dot=${git}/SagiKimhi/dotfiles
-xv6=${git}/tools/xv6-public
-mygit=${git}/SagiKimhi
-
-# Config Files/Directories
-# ------------------------
-
-wezrc=${HOME}/.wezterm.lua
+# Local Git Repositories
+os="${git}/university/operating-systems-2025a"
+mom="${git}/mom"
+uni="${git}/university"
+dot="${git}/SagiKimhi/dotfiles"
+xv6="${git}/tools/xv6-public"
+mygit="${git}/SagiKimhi"
+giliot="${git}/wiliot"
+todo="${HOME}/.todo/todo.txt"

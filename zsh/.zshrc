@@ -2,13 +2,10 @@
 # Env Variables
 # -----------------------------------------------------------------------------
 
-export LANG=en_US.UTF-8
-
-export PATH=${HOME}/.local/bin:/usr/local/bin:${PATH}
-
+export LANG="en_US.UTF-8"
+export PATH="${HOME}/.local/bin:/usr/local/bin:${PATH}"
 export MANPATH="/usr/local/man:${MANPATH}"
-
-export XDG_CONFIG_HOME=${HOME}/.config
+export XDG_CONFIG_HOME="${HOME}/.config"
 
 # -----------------------------------------------------------------------------
 # Init oh-my-zsh
@@ -16,18 +13,16 @@ export XDG_CONFIG_HOME=${HOME}/.config
 
 ZSH=${HOME}/.oh-my-zsh
 ZSH_THEME="robbyrussell"
-plugins=(git)
+plugins=(
+    git z cp rust copypath emoji emoji-clock encode64 extract \
+    iterm2 pip qrcode rand-quote safe-paste tmux-cssh web-search
+)
+
 source ${ZSH}/oh-my-zsh.sh
 
-# -----------------------------------------------------------------------------
-# fix WSL display issue
-# -----------------------------------------------------------------------------
-
-if [[ ! $(cat  /proc/1/cgroup | grep docker) ]]; then
-	echo initiating DISPLAY
-    export DISPLAY=$(/bin/ip route | awk '/default/ { print $3 }'):0
-    echo DISPLAY set to ${DISPLAY}
-fi
+# iterm
+zstyle :omz:plugins:iterm2 shell-integration yes
+zstyle ':completion:*' menu select
 
 # -----------------------------------------------------------------------------
 # Variables
@@ -48,6 +43,7 @@ fi
 # -----------
 
 loc=${HOME}/.local
+opt=${HOME}/.local/opt
 lib=${HOME}/.local/lib
 bin=${HOME}/.local/bin
 jars=${HOME}/.local/lib/jars
@@ -57,7 +53,7 @@ config=${XDG_CONFIG_HOME}
 # -------
 
 zshrc=${HOME}/.zshrc
-ushrc=${HOME}/.zshrc.${USER}
+ushrc=${HOME}/.zshrc.$USER
 aliasrc=${HOME}/.zshrc.aliases
 sshrc=${HOME}/.ssh
 vimrc=${HOME}/.vimrc
@@ -69,27 +65,21 @@ tmuxrc=${config}/tmux/tmux.conf
 # Aliases
 # -----------------------------------------------------------------------------
 
-# base commands
-# -------------
-
+# common
 alias v="${EDITOR}"
 alias so="source"
-alias ls="ls --color=tty"
+alias ls="gls --color=tty"
+alias echo="gecho"
+alias tar="gtar"
 alias edit="${EDITOR}"
-alias docker="sudo docker"
 alias which-command='whence'
 
 # ls
-# --
-
-alias l="ls -lh --group-directories-first"
-alias la="ls -lAh --group-directories-first"
-alias ll="ls -lah --group-directories-first"
-alias lsa="ls -lah"
+alias l="gls --color=tty -lh --group-directories-first"
+alias la="gls --color=tty -lAh --group-directories-first"
+alias ll="gls --color=tty -lah --group-directories-first"
 
 # apt
-# ---
-
 alias aptfull="sudo apt-get update && sudo apt full-upgrade"
 alias aptupdate="sudo apt-get update"
 alias aptinstall="sudo apt-get install"
@@ -97,8 +87,6 @@ alias aptupstall="sudo apt-get update && sudo apt-get install"
 alias aptupgrade="sudo apt-get update && sudo apt upgrade"
 
 # configs
-# -------
-
 alias zshrc="v ${zshrc}"
 alias ushrc="v ${ushrc}"
 alias aliasrc="v ${aliasrc}"
@@ -125,7 +113,19 @@ function search() {
 }
 
 # -----------------------------------------------------------------------------
-# Source User Configs
+# Shell Completions
+# -----------------------------------------------------------------------------
+
+source $HOME/.oh-my-zsh/completions/_doing.zsh
+
+# -----------------------------------------------------------------------------
+# Auto Generated Tool Configs
+# -----------------------------------------------------------------------------
+
+source $HOME/.zshrc.tools
+
+# -----------------------------------------------------------------------------
+# User Configs
 # -----------------------------------------------------------------------------
 
 source $HOME/.zshrc.$USER
